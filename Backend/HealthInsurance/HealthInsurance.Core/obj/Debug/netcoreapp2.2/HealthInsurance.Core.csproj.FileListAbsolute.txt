@@ -1,0 +1,9 @@
+C:\Accesa\Medicine\Backend\HealthInsurance.Core\HealthInsurance.Core\bin\Debug\netcoreapp2.2\HealthInsurance.Core.deps.json
+C:\Accesa\Medicine\Backend\HealthInsurance.Core\HealthInsurance.Core\bin\Debug\netcoreapp2.2\HealthInsurance.Core.dll
+C:\Accesa\Medicine\Backend\HealthInsurance.Core\HealthInsurance.Core\bin\Debug\netcoreapp2.2\HealthInsurance.Core.pdb
+C:\Accesa\Medicine\Backend\HealthInsurance.Core\HealthInsurance.Core\obj\Debug\netcoreapp2.2\HealthInsurance.Core.csprojAssemblyReference.cache
+C:\Accesa\Medicine\Backend\HealthInsurance.Core\HealthInsurance.Core\obj\Debug\netcoreapp2.2\HealthInsurance.Core.csproj.CoreCompileInputs.cache
+C:\Accesa\Medicine\Backend\HealthInsurance.Core\HealthInsurance.Core\obj\Debug\netcoreapp2.2\HealthInsurance.Core.AssemblyInfoInputs.cache
+C:\Accesa\Medicine\Backend\HealthInsurance.Core\HealthInsurance.Core\obj\Debug\netcoreapp2.2\HealthInsurance.Core.AssemblyInfo.cs
+C:\Accesa\Medicine\Backend\HealthInsurance.Core\HealthInsurance.Core\obj\Debug\netcoreapp2.2\HealthInsurance.Core.dll
+C:\Accesa\Medicine\Backend\HealthInsurance.Core\HealthInsurance.Core\obj\Debug\netcoreapp2.2\HealthInsurance.Core.pdb
