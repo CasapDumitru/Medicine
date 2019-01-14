@@ -8,22 +8,24 @@ namespace HealthInsurance.Core.Data.Maps
     {
         public static void Map(EntityTypeBuilder<UserReview> builder)
         {
+            // Table
             builder.ToTable("UserReviews");
-            builder.HasKey(u => u.Id);
 
+            // Key
+            builder.HasKey(u => new { u.AuthorId, u.RecipientId });
+
+            // Properties
             builder.Property(review => review.Description).HasMaxLength(500).IsRequired();
             builder.Property(review => review.Mark).IsRequired();
 
-            // review has an author and if he is deleted the review also will be deleted
-            // !currently is restricted
+            // One-To-Many Relationship between User(Author) and CreatedUserReviews
             builder
                 .HasOne(review => review.Author)
                 .WithMany(user => user.CreatedUserReviews)
                 .HasForeignKey(review => review.AuthorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // review has an recipient and if he is deleted the review also will be deleted
-            // !currently is restricted
+            // One-To-Many Relationship between User(Recipient) and RecievedReviews
             builder
                 .HasOne(review => review.Recipient)
                 .WithMany(user => user.RecievedReviews)

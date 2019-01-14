@@ -1,8 +1,16 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using HealthInsurance.Core.Interfaces.Repositories;
+using HealthInsurance.Core.Interfaces.Services;
+using HealthInsurance.Core.Repositories;
+using HealthInsurance.Core.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
+using System;
 
 namespace HealthInsurance.Api
 {
@@ -18,12 +26,30 @@ namespace HealthInsurance.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen( options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Health Insurance API", Version = "v1" });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // repositories
+            services.AddScoped<IOfficeRepository, OfficeRepository>();
+
+            // services
+            services.AddScoped<IOfficeService, OfficeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSwagger();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -36,6 +62,11 @@ namespace HealthInsurance.Api
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
         }
     }
 }

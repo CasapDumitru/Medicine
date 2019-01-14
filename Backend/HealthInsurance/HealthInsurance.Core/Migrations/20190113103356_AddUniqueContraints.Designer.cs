@@ -4,14 +4,16 @@ using HealthInsurance.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HealthInsurance.Core.Migrations
 {
     [DbContext(typeof(HealthInsuranceContext))]
-    partial class HealthInsuranceContextModelSnapshot : ModelSnapshot
+    [Migration("20190113103356_AddUniqueContraints")]
+    partial class AddUniqueContraints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

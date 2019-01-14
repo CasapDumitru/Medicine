@@ -8,9 +8,14 @@ namespace HealthInsurance.Core.Data.Maps
     {
         public static void Map(EntityTypeBuilder<User> builder)
         {
+            // Table
             builder.ToTable("Users");
+
+            // Key
             builder.HasKey(user => user.Id);
 
+
+            // Properties
             builder.Property(user => user.UserType).HasDefaultValue(UserType.None).IsRequired();
             builder.Property(user => user.BirthDate).IsRequired();
             builder.Property(user => user.FirstName).HasMaxLength(50).IsRequired();
@@ -20,7 +25,12 @@ namespace HealthInsurance.Core.Data.Maps
             builder.Property(user => user.UserName).HasMaxLength(30).IsRequired();
             builder.Property(user => user.Password).HasMaxLength(30).IsRequired();
 
-            // user has an address and he will not be deleted if the address is deleted
+            // Indexes
+            builder.HasIndex(user => user.PhoneNumber).IsUnique();
+            builder.HasIndex(user => user.Email).IsUnique();
+            builder.HasIndex(user => user.UserName).IsUnique();
+
+            // One-To-Many Relationship between Address and Users
             builder
                 .HasOne(user => user.Address)
                 .WithMany()

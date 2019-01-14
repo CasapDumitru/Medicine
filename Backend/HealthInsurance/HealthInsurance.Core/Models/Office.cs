@@ -7,6 +7,7 @@ namespace HealthInsurance.Core.Models
         public Office()
         {
             Departments = new List<Department>();
+            RecievedReviews = new List<OfficeReview>();
         }
 
         public int Id { get; set; }
@@ -17,7 +18,8 @@ namespace HealthInsurance.Core.Models
         public int? OwnerId { get; set; }
         public Address Address { get; set; }
         public int? AddressId { get; set; }
+
         public IList<Department> Departments { get; set; }
-        public IList<OfficeReview> Reviews { get; set; }
+        public IList<OfficeReview> RecievedReviews { get; set; }
     }
 }

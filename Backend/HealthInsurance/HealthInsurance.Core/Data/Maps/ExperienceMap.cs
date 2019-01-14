@@ -8,9 +8,13 @@ namespace HealthInsurance.Core.Data.Maps
     {
         public static void Map(EntityTypeBuilder<Experience> builder)
         {
+            // Table
             builder.ToTable("Experiences");
+
+            // Key
             builder.HasKey(experience => experience.Id);
 
+            // Properties
             builder.Property(experience => experience.StartDate).IsRequired();
             builder.Property(experience => experience.EndDate).IsRequired();
             builder.Property(experience => experience.School).HasMaxLength(50);
@@ -19,7 +23,7 @@ namespace HealthInsurance.Core.Data.Maps
             builder.Property(experience => experience.Company).HasMaxLength(50);
             builder.Property(experience => experience.Position).HasMaxLength(50);
 
-            // experience belongs to an user, and it will be deleted if the user is deleted
+            // One-To-Many Relationship between User and Experiences
             builder
                 .HasOne(experience => experience.User)
                 .WithMany(user => user.Experiences)

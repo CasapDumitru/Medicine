@@ -14,21 +14,27 @@ namespace HealthInsurance.Core.Models
     {
         public User()
         {
-            Offices = new List<Office>();
+            Experiences = new List<Experience>();
+            CreatedOfficeReviews = new List<OfficeReview>();
+            CreatedUserReviews = new List<UserReview>();           
+            Offices = new List<Office>();          
+            RecievedReviews = new List<UserReview>();
         }
 
         public int Id { get; set; }
-        public UserType UserType { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Password { get; set; }
         public string PhoneNumber { get; set; }
         public string UserName { get; set; }
-        public string Password { get; set; }
+        public UserType UserType { get; set; }
 
         public Address Address { get; set; }
         public int? AddressId { get; set; }
+
         public IList<Office> Offices { get; set; }
         public IList<Experience> Experiences { get; set; }
         public IList<UserReview> CreatedUserReviews { get; set; }

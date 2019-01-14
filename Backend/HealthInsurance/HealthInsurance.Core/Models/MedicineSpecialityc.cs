@@ -7,6 +7,7 @@ namespace HealthInsurance.Core.Models
         public MedicineSpeciality() {
             Departments = new List<Department>();
         }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

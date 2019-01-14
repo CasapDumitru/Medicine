@@ -1,4 +1,5 @@
-﻿using HealthInsurance.Core.Data.Maps;
+﻿using HealthInsurance.Core.AppConfig;
+using HealthInsurance.Core.Data.Maps;
 using HealthInsurance.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,8 @@ namespace HealthInsurance.Core.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = "Server = .; Database = HealthInsuranceDB; Trusted_Connection = True";
+            var appConfig = new AppConfiguration();
+            var connectionString = appConfig.ConnectionString;
             optionsBuilder.UseSqlServer(connectionString);
         }
 

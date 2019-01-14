@@ -1,21 +1,22 @@
-﻿using HealthInsurance.Core.Models;
+﻿using HealthInsurance.Core.Interfaces.Repositories;
+using HealthInsurance.Core.Interfaces.Services;
+using HealthInsurance.Core.Models;
 using System.Collections.Generic;
 
 namespace HealthInsurance.Core.Services
 {
-    public class OfficeService
+    public class OfficeService : IOfficeService
     {
+        private readonly IOfficeRepository _officeRepository;
+
+        public OfficeService(IOfficeRepository officeRepository)
+        {
+            _officeRepository = officeRepository;
+        }
+
         public IList<Office> GetAll()
         {
-            var offices = new List<Office>
-            {
-                new Office { Id = 1, Name = "Office1" },
-                new Office { Id = 2, Name = "Office2" },
-                new Office { Id = 3, Name = "Office3" },
-                new Office { Id = 4, Name = "Office4" },
-                new Office { Id = 5, Name = "Office5" },
-            };
-
+            var offices = _officeRepository.GetAll();
             return offices;
         }
     }

@@ -8,20 +8,27 @@ namespace HealthInsurance.Core.Data.Maps
     {
         public static void Map(EntityTypeBuilder<Office> builder)
         {
+            // Table
             builder.ToTable("Offices");
+
+            // Key
             builder.HasKey(office => office.Id);
 
+            // Properties
             builder.Property(office => office.Name).HasMaxLength(50);
             builder.Property(office => office.Description).HasMaxLength(500);
 
-            // office has an address and it will not be deleted if the address is deleted
+            // Indexes
+            builder.HasIndex(office => office.Name).IsUnique();
+
+            // One-To-Many Relationship between Address and Offices
             builder
                 .HasOne(office => office.Address)
                 .WithMany()
                 .HasForeignKey(office => office.AddressId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // office has an owner and it will not be deleted if the owner is deleted
+            // One-To-Many Relationship between Owner and Offices
             builder
                 .HasOne(office => office.Owner)
                 .WithMany(user => user.Offices)

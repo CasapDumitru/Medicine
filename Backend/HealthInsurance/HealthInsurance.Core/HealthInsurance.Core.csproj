@@ -38,6 +38,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0-preview.18572.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.0.0-preview.18572.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0-preview.18572.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +55,9 @@
     </Compile>
     <Compile Update="Migrations\20190111081106_AddMedicineSpecialityInsteadEnumValues.Designer.cs">
       <DependentUpon>20190111081106_AddMedicineSpecialityInsteadEnumValues.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20190113103356_AddUniqueContraints.Designer.cs">
+      <DependentUpon>20190113103356_AddUniqueContraints.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 

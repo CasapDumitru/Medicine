@@ -1,9 +1,9 @@
 ﻿using HealthInsurance.Core.Models;
 using System.Collections.Generic;
 
-namespace HealthInsurance.Core.Interfaces.Services
+namespace HealthInsurance.Core.Interfaces.Repositories
 {
-    public interface IOfficeService
+    public interface IOfficeRepository
     {
         IList<Office> GetAll();
     }

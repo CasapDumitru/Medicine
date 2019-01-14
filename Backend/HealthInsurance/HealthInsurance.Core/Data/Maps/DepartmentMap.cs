@@ -8,20 +8,24 @@ namespace HealthInsurance.Core.Data.Maps
     {
         public static void Map(EntityTypeBuilder<Department> builder)
         {
+            // Table
             builder.ToTable("Departments");
+
+            // Key
             builder.HasKey(department => department.Id);
 
+            // Properties
             builder.Property(department => department.Name).HasMaxLength(40).IsRequired();
             builder.Property(department => department.Description).HasMaxLength(500).IsRequired();
 
-            // department belongs to an office, and it will be deleted if office is deleted
+            // One-To-Many Relationship between Office and Departments
             builder
                 .HasOne(department => department.Office)
                 .WithMany(office => office.Departments)
                 .HasForeignKey(department => department.OfficeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // if the speciality is deleted the speciality of department is set to null
+            // One-To-Many Relationship between MedicineSpeciality and Departments
             builder
                 .HasOne(department => department.MedicineSpeciality)
                 .WithMany(medicineSpeciality => medicineSpeciality.Departments)
