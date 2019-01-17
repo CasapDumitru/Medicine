@@ -13,6 +13,6 @@ namespace HealthInsurance.Core.Models
         public Office Office { get; set; }
         public int OfficeId { get; set; }
         
-        public IList<DoctorDepartment> DoctorDepartments { get; set; }
+        public ICollection<DoctorDepartment> DoctorDepartments { get; set; }
     }
 }

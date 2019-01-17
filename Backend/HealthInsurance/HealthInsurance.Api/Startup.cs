@@ -1,4 +1,4 @@
-﻿using HealthInsurance.Core.Interfaces.Repositories;
+﻿using HealthInsurance.Core.Interfaces.Specifications;
 using HealthInsurance.Core.Interfaces.Services;
 using HealthInsurance.Core.Repositories;
 using HealthInsurance.Core.Services;
@@ -11,6 +11,8 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
 using System;
+using HealthInsurance.Core.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthInsurance.Api
 {
@@ -38,8 +40,13 @@ namespace HealthInsurance.Api
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddDbContext<HealthInsuranceContext>(options =>
+                options.UseSqlServer(Configuration["connectionStrings:healthInsuranceConnectionString"]));
+
             // repositories
-            services.AddScoped<IOfficeRepository, OfficeRepository>();
+            //services.AddScoped<IOfficeRepository, OfficeRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             // services
             services.AddScoped<IOfficeService, OfficeService>();

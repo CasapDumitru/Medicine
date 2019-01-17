@@ -1,5 +1,6 @@
 ﻿using HealthInsurance.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HealthInsurance.Api.Controllers
 {
@@ -7,7 +8,6 @@ namespace HealthInsurance.Api.Controllers
     /// Offices Controller
     /// </summary>
     [Route("api/offices")]
-    [Produces("application/json")]
     [ApiController]
     public class OfficesController : ControllerBase
     {
@@ -23,23 +23,17 @@ namespace HealthInsurance.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var offices = _officeService.GetAll();
-
+            var offices = await _officeService.GetAll();
             return Ok(offices);
         }
 
-        /// <summary>
-        /// Get offices by name
-        /// </summary>
-        /// <param name="officeName">Office name</param>
-        /// <returns>Instance of Office Class</returns>
-        [HttpGet("{officeName}")]
-        public IActionResult Get(string officeName)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var offices = _officeService.GetAll();
-            return Ok(offices);
+            var office = await _officeService.GetById(id);
+            return Ok(office);
         }
     }
 }

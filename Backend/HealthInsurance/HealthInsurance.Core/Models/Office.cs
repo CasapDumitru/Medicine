@@ -2,15 +2,8 @@
 
 namespace HealthInsurance.Core.Models
 {
-    public class Office
+    public class Office : BaseIdentity
     {
-        public Office()
-        {
-            Departments = new List<Department>();
-            RecievedReviews = new List<OfficeReview>();
-        }
-
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
@@ -19,7 +12,7 @@ namespace HealthInsurance.Core.Models
         public Address Address { get; set; }
         public int? AddressId { get; set; }
 
-        public IList<Department> Departments { get; set; }
-        public IList<OfficeReview> RecievedReviews { get; set; }
+        public ICollection<Department> Departments { get; set; }
+        public ICollection<OfficeReview> RecievedReviews { get; set; }
     }
 }
