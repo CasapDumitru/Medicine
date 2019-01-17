@@ -1,59 +1,68 @@
-﻿using HealthInsurance.Core.Interfaces.Specifications;
-using HealthInsurance.Core.Interfaces.Services;
+﻿using HealthInsurance.Core.Interfaces.Services;
+using HealthInsurance.Core.Interfaces.Specifications;
 using HealthInsurance.Core.Models;
-using HealthInsurance.Core.Repositories;
-using System;
+using HealthInsurance.Core.Specifications;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace HealthInsurance.Core.Services
 {
-    public class OfficeService : IOfficeService
+	public class OfficeService : IOfficeService
     {
-        //private readonly IOfficeRepository _officeRepository;
         private IUnitOfWork _unitOfWork;
-		private IRepository<Office> _officeRepository;
+		private IRepository _repository;
 
-        public OfficeService(IUnitOfWork unitOfWork, IRepository<Office> officeRepository)
+        public OfficeService(IUnitOfWork unitOfWork)
         {
-			_officeRepository = officeRepository;
             _unitOfWork = unitOfWork;
+			_repository = unitOfWork.Repository;
         }
 
-        public async Task<IEnumerable<Office>> GetAll()
-        {
-			//var specification = new GenericSpecification<Office>();
+		public async Task<IReadOnlyList<Office>> GetAll()
+		{
+			return await _repository.GetAll<Office>();
+		}
 
-			/*specification.Expression = o => o.Name.Contains("Regina");
+		public async Task<Office> GetById(int id)
+		{
+			return await _repository.GetById<Office>(id);
+		}
 
-			specification.AddInclude($"{nameof(Office.Address)}");
-			specification.AddInclude($"{nameof(Office.Owner)}");*/
+		public async Task<Office> GetFullById(int id)
+		{
+			var specification = new FullOfficeByIdSpecification(id);
+			return await _repository.GetSingleBySpecification(specification);
+		}
 
-			//var offices = await _officeRepository.GetAllOffices();
-			/*var offices = await _unitOfWork.Repository.Get<Office>(specification);
-            return offices;*/
+		public async Task<IReadOnlyList<Office>> SearchByName(string name)
+		{
+			var specification = new OfficeByNameSpecification(name);
+			return await _repository.GetBySpecification(specification);
+		}
 
-			var specification = new Specification<Office>(o => o.Name.Contains("Maria"));
+		public async Task<Office> Add(Office office)
+		{
+			var addedOffice = await _repository.Add(office);
+			await _unitOfWork.SaveChanges();
+			return addedOffice;
+		}
 
-			specification.AddInclude(o => o.Owner);
-			specification.AddInclude(o => o.Address);
+		public async Task<Office> Update(Office office)
+		{
+			_repository.Update(office);
+			await _unitOfWork.SaveChanges();
+			return office;
+		}
 
-			var offices = await _officeRepository.GetBySpecification(specification);
-			return offices;
-        }
+		public async Task<Office> Delete(int id)
+		{
+			var office = GetById(id);
 
-        public async Task<Office> GetById(int id)
-        {
-			var specification = new GenericSpecification<Office>();// = new GenericSpecification<Office>(o => o.Name.Contains("Regina") && o.Description.Contains("dsadas"));
+			if(office != null)
+				_repository.Delete(office.Result);
 
-
-
-			specification.AddInclude($"{nameof(Office.Address)}");
-			specification.AddInclude($"{nameof(Office.Owner)}");
-
-			//var office = await _unitOfWork.Repository.GetById<Office>(specification);
-            return null;
-        }
-    }
+			await _unitOfWork.SaveChanges();
+			return office.Result;
+		}	
+	}
 }

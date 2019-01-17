@@ -46,7 +46,7 @@ namespace HealthInsurance.Api
             // repositories
             //services.AddScoped<IOfficeRepository, OfficeRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+			services.AddScoped<IRepository, Repository>();
 
             // services
             services.AddScoped<IOfficeService, OfficeService>();

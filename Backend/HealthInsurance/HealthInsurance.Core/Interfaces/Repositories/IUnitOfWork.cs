@@ -4,7 +4,7 @@ namespace HealthInsurance.Core.Interfaces.Specifications
 {
     public interface IUnitOfWork
     {
-        //IRepository Repository { get; }
+        IRepository Repository { get; }
         Task SaveChanges();
     }
 }

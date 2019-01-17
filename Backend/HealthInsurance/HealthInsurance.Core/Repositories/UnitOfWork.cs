@@ -7,12 +7,12 @@ namespace HealthInsurance.Core.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private HealthInsuranceContext _context;
-        //public IRepository<T> Repository { get; }
+        public IRepository Repository { get; }
 
-        public UnitOfWork(HealthInsuranceContext healthInsuranceContext/*, IRepository<T> repository*/)
+        public UnitOfWork(HealthInsuranceContext healthInsuranceContext, IRepository repository)
         {
             _context = healthInsuranceContext;
-            //Repository = repository;
+            Repository = repository;
         }
 
         public async Task SaveChanges()

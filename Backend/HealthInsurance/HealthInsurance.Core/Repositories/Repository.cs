@@ -9,59 +9,59 @@ using System.Threading.Tasks;
 
 namespace HealthInsurance.Core.Repositories
 {
-	public class Repository<T> : IRepository<T> where T : BaseIdentity
+	public class Repository : IRepository
 	{
-		private DbSet<T> _dbSet;
+		private HealthInsuranceContext _context;
 
 		public Repository(HealthInsuranceContext context)
 		{
-			_dbSet = context.Set<T>();
+			_context = context;
 		}
 
-		public async Task<T> GetById(int id)
+		public async Task<T> GetById<T>(int id) where T : BaseIdentity
 		{
-			return await _dbSet.FindAsync(id);
+			return await _context.Set<T>().FindAsync(id);
 		}
 
-		public async Task<T> GetSingleBySpecification(ISpecification<T> spec)
+		public async Task<T> GetSingleBySpecification<T>(ISpecification<T> spec) where T : BaseIdentity
 		{
 			return await ApplySpecification(spec).FirstOrDefaultAsync();
 		}
 
-		public async Task<IReadOnlyList<T>> GetAll()
+		public async Task<IReadOnlyList<T>> GetAll<T>() where T : BaseIdentity
 		{
-			return await _dbSet.ToListAsync();
+			return await _context.Set<T>().ToListAsync();
 		}
 
-		public async Task<IReadOnlyList<T>> GetBySpecification(ISpecification<T> spec)
+		public async Task<IReadOnlyList<T>> GetBySpecification<T>(ISpecification<T> spec) where T : BaseIdentity
 		{
 			return await ApplySpecification(spec).ToListAsync();
 		}
 
-		public async Task<int> Count(ISpecification<T> spec)
+		public async Task<int> Count<T>(ISpecification<T> spec) where T : BaseIdentity
 		{
 			return await ApplySpecification(spec).CountAsync();
 		}
 
-		public async Task<T> Add(T entity)
+		public async Task<T> Add<T>(T entity) where T : BaseIdentity
 		{
-			await _dbSet.AddAsync(entity);
+			await _context.Set<T>().AddAsync(entity);
 			return entity;
 		}
 
-		public void Update(T entity)
+		public void Update<T>(T entity) where T : BaseIdentity
 		{
-			_dbSet.Update(entity);
+			_context.Set<T>().Update(entity);
 		}
 
-		public void Delete(T entity)
+		public void Delete<T>(T entity) where T : BaseIdentity
 		{
-			_dbSet.Remove(entity);
+			_context.Set<T>().Remove(entity);
 		}
 
-		private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+		private IQueryable<T> ApplySpecification<T>(ISpecification<T> spec) where T : BaseIdentity
 		{
-			return SpecificationEvaluator<T>.GetQuery(_dbSet.AsQueryable(), spec); 
+			return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec); 
 		}
 	}
 }
