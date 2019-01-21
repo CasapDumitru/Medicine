@@ -1,4 +1,4 @@
-﻿namespace HealthInsurance.Core.Models
+﻿namespace HealthInsurance.Core.Entities
 {
     public class OfficeReview : Review
     {

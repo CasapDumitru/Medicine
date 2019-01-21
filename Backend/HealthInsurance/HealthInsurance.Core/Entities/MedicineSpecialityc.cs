@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace HealthInsurance.Core.Models
+namespace HealthInsurance.Core.Entities
 {
-    public class MedicineSpeciality
-    {
-        public int Id { get; set; }
+    public class MedicineSpeciality : BaseIdentity
+	{
         public string Name { get; set; }
         public string Description { get; set; }
 

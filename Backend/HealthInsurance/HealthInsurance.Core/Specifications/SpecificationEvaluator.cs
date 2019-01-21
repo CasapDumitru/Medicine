@@ -1,5 +1,5 @@
 ﻿using HealthInsurance.Core.Interfaces.Specifications;
-using HealthInsurance.Core.Models;
+using HealthInsurance.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 

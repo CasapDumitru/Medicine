@@ -1,4 +1,4 @@
-﻿using HealthInsurance.Core.Models;
+﻿using HealthInsurance.Core.Entities;
 
 namespace HealthInsurance.Core.Specifications
 {
@@ -7,10 +7,10 @@ namespace HealthInsurance.Core.Specifications
 		public FullOfficeByIdSpecification(int id)
 			: base(office => office.Id == id)
 		{
-			AddInclude(b => b.Address);
-			AddInclude(b => b.Departments);
-			AddInclude(b => b.RecievedReviews);
-			AddInclude(b => b.Owner);
+			AddInclude(nameof(Office.Address));
+			AddInclude(nameof(Office.Departments));
+			//AddInclude(nameof(Office.Owner));
+			//AddInclude(nameof(Office.RecievedReviews));
 		}
 	}
 

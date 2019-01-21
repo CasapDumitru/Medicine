@@ -13,6 +13,8 @@ using System.IO;
 using System;
 using HealthInsurance.Core.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using AutoMapper;
 
 namespace HealthInsurance.Api
 {
@@ -38,19 +40,25 @@ namespace HealthInsurance.Api
                 options.IncludeXmlComments(xmlPath);
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(setupAction =>
+			{
+				setupAction.ReturnHttpNotAcceptable = true;
+				setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+			services.AddAutoMapper();
 
             services.AddDbContext<HealthInsuranceContext>(options =>
                 options.UseSqlServer(Configuration["connectionStrings:healthInsuranceConnectionString"]));
 
             // repositories
-            //services.AddScoped<IOfficeRepository, OfficeRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<IRepository, Repository>();
 
             // services
             services.AddScoped<IOfficeService, OfficeService>();
-        }
+			services.AddScoped<IUserService, UserService>();
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

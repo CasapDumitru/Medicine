@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HealthInsurance.Core.Models
+namespace HealthInsurance.Core.Entities
 {
     public enum ExperienceType
     {
@@ -10,9 +10,8 @@ namespace HealthInsurance.Core.Models
         MasterDegree = 3,
         Job = 4
     }
-    public class Experience
-    {
-        public int Id { get; set; }
+    public class Experience : BaseIdentity
+	{
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Company { get; set; }

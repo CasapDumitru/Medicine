@@ -1,4 +1,4 @@
-﻿using HealthInsurance.Core.Models;
+﻿using HealthInsurance.Core.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

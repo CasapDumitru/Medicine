@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HealthInsurance.Core.Models
+namespace HealthInsurance.Core.Entities
 {
     public enum  UserType
     {
@@ -10,7 +10,7 @@ namespace HealthInsurance.Core.Models
         Doctor = 2
     }
 
-    public class User
+    public class User : BaseIdentity
     {
         public User()
         {
@@ -20,8 +20,6 @@ namespace HealthInsurance.Core.Models
             Offices = new List<Office>();          
             RecievedReviews = new List<UserReview>();
         }
-
-        public int Id { get; set; }
 
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }

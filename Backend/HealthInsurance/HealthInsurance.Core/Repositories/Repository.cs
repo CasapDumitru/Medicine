@@ -1,6 +1,6 @@
 ﻿using HealthInsurance.Core.Data;
 using HealthInsurance.Core.Interfaces.Specifications;
-using HealthInsurance.Core.Models;
+using HealthInsurance.Core.Entities;
 using HealthInsurance.Core.Specifications;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

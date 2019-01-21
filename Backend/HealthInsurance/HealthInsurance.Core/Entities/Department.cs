@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace HealthInsurance.Core.Models
+namespace HealthInsurance.Core.Entities
 {
-    public class Department
-    {
-        public int Id { get; set; }
+    public class Department : BaseIdentity
+	{
         public string Name { get; set; }
         public string Description { get; set; }
         

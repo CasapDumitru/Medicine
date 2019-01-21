@@ -1,6 +1,6 @@
 ﻿using HealthInsurance.Core.AppConfig;
 using HealthInsurance.Core.Data.Maps;
-using HealthInsurance.Core.Models;
+using HealthInsurance.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HealthInsurance.Core.Data
