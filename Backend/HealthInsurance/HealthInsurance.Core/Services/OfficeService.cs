@@ -6,6 +6,7 @@ using HealthInsurance.Core.Entities;
 using HealthInsurance.Core.Specifications;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HealthInsurance.Core.Exceptions;
 
 namespace HealthInsurance.Core.Services
 {
@@ -33,6 +34,11 @@ namespace HealthInsurance.Core.Services
 		{
 			var office = await _repository.GetById<Office>(id);
 
+            if(office == null)
+            {
+                throw new NotFoundException($"Office with Id = {id} is not found");
+            }
+
 			return _mapper.Map<OfficeDto>(office);
 		}
 
@@ -41,7 +47,12 @@ namespace HealthInsurance.Core.Services
 			var specification = new FullOfficeByIdSpecification(id);
 			var office = await _repository.GetSingleBySpecification(specification);
 
-			var officeDto = _mapper.Map<OfficeDto>(office);
+            if (office == null)
+            {
+                throw new NotFoundException($"Office with Id = {id} is not found");
+            }
+
+            var officeDto = _mapper.Map<OfficeDto>(office);
 
 			return officeDto;
 		}

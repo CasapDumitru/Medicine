@@ -1,8 +1,10 @@
-﻿namespace HealthInsurance.Core.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HealthInsurance.Core.Models
 {
-	public class DepartmentForUpdateDto
+	public class DepartmentForUpdateDto : DepartmentForManipulationDto
 	{
-		public string Name { get; set; }
-		public string Description { get; set; }
-	}
+        [Required(ErrorMessage = "You should specify the Id of Department to update")]
+        public int Id { get; set; }
+    }
 }

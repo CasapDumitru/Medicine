@@ -5,17 +5,20 @@ using HealthInsurance.Core.Interfaces.Services;
 using HealthInsurance.Core.Interfaces.Specifications;
 using HealthInsurance.Core.Models;
 using HealthInsurance.Core.Entities;
+//using Microsoft.Extensions.Logging;
 
 namespace HealthInsurance.Core.Services
 {
 	public class UserService : IUserService
 	{
+        //private ILogger _logger;
 		private IMapper _mapper;
 		private IUnitOfWork _unitOfWork;
 		private IRepository _repository;
 
 		public UserService(IMapper mapper, IUnitOfWork unitOfWork)
 		{
+            //_logger = logger;
 			_mapper = mapper;
 			_unitOfWork = unitOfWork;
 			_repository = unitOfWork.Repository;
@@ -30,6 +33,7 @@ namespace HealthInsurance.Core.Services
 
 		public async Task<IReadOnlyList<UserDto>> GetAll()
 		{
+            //_logger.LogWarning("Something is not gooood :( :(!");
 			var users = await _repository.GetAll<User>();
 			var usersDto = Mapper.Map<IReadOnlyList<UserDto>>(users);
 			return usersDto;

@@ -15,6 +15,8 @@ using HealthInsurance.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using AutoMapper;
+using HealthInsurance.Api.Exceptions;
+using HealthInsurance.Api.ActionFilters;
 
 namespace HealthInsurance.Api
 {
@@ -40,6 +42,8 @@ namespace HealthInsurance.Api
                 options.IncludeXmlComments(xmlPath);
             });
 
+            services.AddScoped<ValidationFilterAttribute>();
+
             services.AddMvc(setupAction =>
 			{
 				setupAction.ReturnHttpNotAcceptable = true;
@@ -58,7 +62,9 @@ namespace HealthInsurance.Api
             // services
             services.AddScoped<IOfficeService, OfficeService>();
 			services.AddScoped<IUserService, UserService>();
-		}
+
+            
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -76,6 +82,7 @@ namespace HealthInsurance.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
 
             app.UseSwaggerUI(c =>

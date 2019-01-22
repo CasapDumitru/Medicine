@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HealthInsurance.Core.Models
 {
-	public class OfficeForUpdateDto
+	public class OfficeForUpdateDto : OfficeForManipulationDto
 	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
-
-		public int? OwnerId { get; set; }
-		public AddressDto Address { get; set; }
-	}
+        [Required(ErrorMessage = "You should specify the Id of Office to update")]
+        public int Id { get; set; }
+    }
 }

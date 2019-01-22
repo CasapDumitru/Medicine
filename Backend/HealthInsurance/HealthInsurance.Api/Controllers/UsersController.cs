@@ -44,6 +44,7 @@ namespace HealthInsurance.Api.Controllers
 				addedUser);
 		}
 
+        [HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteUser(int id)
 		{
 			var user = await _userService.Delete(id);

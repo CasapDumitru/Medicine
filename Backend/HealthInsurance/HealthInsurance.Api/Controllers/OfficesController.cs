@@ -1,6 +1,9 @@
-﻿using HealthInsurance.Core.Interfaces.Services;
+﻿using HealthInsurance.Api.ActionFilters;
+using HealthInsurance.Core.Interfaces.Services;
 using HealthInsurance.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace HealthInsurance.Api.Controllers
@@ -9,13 +12,14 @@ namespace HealthInsurance.Api.Controllers
     /// Offices Controller
     /// </summary>
     [Route("api/offices")]
-    [ApiController]
     public class OfficesController : Controller
     {
+        private readonly ILogger<OfficesController> _logger;
         private readonly IOfficeService _officeService;
 
-        public OfficesController(IOfficeService officeService)
+        public OfficesController(ILogger<OfficesController> logger, IOfficeService officeService)
         {
+            _logger = logger;
             _officeService = officeService;
         }
 
@@ -26,7 +30,9 @@ namespace HealthInsurance.Api.Controllers
 		[HttpGet()]
         public async Task<IActionResult> Get()
         {
+            throw new Exception("SOmething bad");
             var offices = await _officeService.SearchByName("Maria");
+            _logger.LogWarning("You did a big mistake!");
             return Ok(offices);
         }
 
@@ -48,19 +54,12 @@ namespace HealthInsurance.Api.Controllers
 		/// <param name="office"></param>
 		/// <returns></returns>
 		[HttpPost()]
-		public async Task<IActionResult> AddOffice(
-			[FromBody] OfficeForCreationDto office)
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+		public async Task<IActionResult> AddOffice([FromBody] OfficeForCreationDto office)
 		{
-			if (office == null)
-			{
-				return BadRequest();
-			}
-
 			var addedOffice = await _officeService.Add(office);
 
-			return CreatedAtRoute("GetOffice",
-				new { id = addedOffice.Id },
-				addedOffice);
+			return CreatedAtRoute("GetOffice", new { id = addedOffice.Id }, addedOffice);
 		}
 	}
 }
