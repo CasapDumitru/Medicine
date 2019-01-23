@@ -9,10 +9,12 @@ namespace HealthInsurance.Core.Data.Maps
         public static void Map(EntityTypeBuilder<DoctorDepartment> builder)
         {
             // Table
-            builder.ToTable("DoctorDepartments");
+            builder
+                .ToTable("DoctorDepartments");
 
             // Key
-            builder.HasKey(doctorDepartment =>  new { doctorDepartment.DoctorId, doctorDepartment.DepartmentId });
+            builder
+                .HasKey(doctorDepartment =>  new { doctorDepartment.DoctorId, doctorDepartment.DepartmentId });
 
             // Many-To-Many Relationship between Doctor and Department
             builder
@@ -20,6 +22,7 @@ namespace HealthInsurance.Core.Data.Maps
                 .WithMany(doctor => doctor.DoctorDepartments)
                 .HasForeignKey(doctorDepartment => doctorDepartment.DoctorId)
                 .OnDelete(DeleteBehavior.Cascade);
+
             builder
                 .HasOne(doctorDepartment => doctorDepartment.Department)
                 .WithMany(department => department.DoctorDepartments)

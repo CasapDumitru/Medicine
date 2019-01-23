@@ -9,14 +9,22 @@ namespace HealthInsurance.Core.Data.Maps
         public static void Map(EntityTypeBuilder<OfficeReview> builder)
         {
             // Table
-            builder.ToTable("OfficeReviews");
+            builder
+                .ToTable("OfficeReviews");
 
             // Keys
-            builder.HasKey(review => new { review.AuthorId, review.RecipientId });
+            builder
+                .HasKey(review => new { review.AuthorId, review.RecipientId });
 
             // Properties
-            builder.Property(review => review.Description).HasMaxLength(500).IsRequired();
-            builder.Property(review => review.Mark).IsRequired();
+            builder
+                .Property(review => review.Description)
+                .HasMaxLength(500)
+                .IsRequired();
+
+            builder
+                .Property(review => review.Mark)
+                .IsRequired();
 
             // One-To-Many Relationship between User(Author) and CreatedOfficeReviews
             builder

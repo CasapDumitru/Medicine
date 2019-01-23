@@ -9,17 +9,29 @@ namespace HealthInsurance.Core.Data.Maps
         public static void Map(EntityTypeBuilder<Office> builder)
         {
             // Table
-            builder.ToTable("Offices");
+            builder
+                .ToTable("Offices");
 
             // Key
-            builder.HasKey(office => office.Id);
+            builder
+                .HasKey(office => office.Id);
 
             // Properties
-            builder.Property(office => office.Name).HasMaxLength(50);
-            builder.Property(office => office.Description).HasMaxLength(500);
+            builder
+                .Property(office => office.Name)
+                .HasMaxLength(50)
+                .IsRequired();
+
+
+            builder
+                .Property(office => office.Description)
+                .HasMaxLength(1500)
+                .IsRequired();
 
             // Indexes
-            builder.HasIndex(office => office.Name).IsUnique();
+            builder
+                .HasIndex(office => office.Name)
+                .IsUnique();
 
             // One-To-Many Relationship between Address and Offices
             builder

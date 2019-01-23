@@ -9,14 +9,23 @@ namespace HealthInsurance.Core.Data.Maps
         public static void Map(EntityTypeBuilder<Department> builder)
         {
             // Table
-            builder.ToTable("Departments");
+            builder
+                .ToTable("Departments");
 
             // Key
-            builder.HasKey(department => department.Id);
+            builder
+                .HasKey(department => department.Id);
 
             // Properties
-            builder.Property(department => department.Name).HasMaxLength(40).IsRequired();
-            builder.Property(department => department.Description).HasMaxLength(500).IsRequired();
+            builder
+                .Property(department => department.Name)
+                .HasMaxLength(40)
+                .IsRequired();
+
+            builder
+                .Property(department => department.Description)
+                .HasMaxLength(1000)
+                .IsRequired();
 
             // One-To-Many Relationship between Office and Departments
             builder
